@@ -1,12 +1,12 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&display=swap');
 @import 'tailwindcss';
 
-/* Variables CSS pour les couleurs PulsAI */
+/* ---- Variables ---- */
 :root {
   --primary: #3590e3;
   --primary-dark: #2678c7;
-  --primary-light: #5ba8e9;
   --secondary: #baf09d;
   --secondary-dark: #a3d684;
   --bg-dark: #1f2937;
@@ -17,120 +17,47 @@
   --border: #4b5563;
   --danger: #ef4444;
   --warning: #f59e0b;
-  --success: #baf09d;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* ---- Base ---- */
 body {
   font-family: 'Ubuntu', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-primary);
 }
 
-/* Scrollbar personnalisé */
-::-webkit-scrollbar {
-  width: 6px;
-}
+/* ---- Utilitaires ---- */
+.font-unbounded { font-family: 'Unbounded', sans-serif; }
+.bg-dark { background-color: var(--bg-dark); }
+.bg-dark-light { background-color: var(--bg-light); }
+.bg-dark-light-50 { background-color: rgba(55, 65, 81, 0.5); }
+.bg-dark-card { background-color: var(--bg-card); }
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+.bg-danger { background-color: var(--danger); }
+.bg-warning { background-color: var(--warning); }
+.text-primary { color: var(--primary); }
+.text-secondary-custom { color: var(--secondary); }
+.text-muted { color: var(--text-secondary); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.border-custom { border-color: var(--border); }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-dark);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-}
-
-/* Classes utilitaires personnalisées */
-.font-unbounded {
-  font-family: 'Unbounded', sans-serif;
-}
-
-.font-ubuntu {
-  font-family: 'Ubuntu', sans-serif;
-}
-
-.bg-primary {
-  background-color: var(--primary);
-}
-
-.bg-primary-dark {
-  background-color: var(--primary-dark);
-}
-
-.bg-secondary {
-  background-color: var(--secondary);
-}
-
-.bg-dark {
-  background-color: var(--bg-dark);
-}
-
-.bg-dark-light {
-  background-color: var(--bg-light);
-}
-
-.bg-dark-card {
-  background-color: var(--bg-card);
-}
-
-.text-primary {
-  color: var(--primary);
-}
-
-.text-secondary-custom {
-  color: var(--secondary);
-}
-
-.text-muted {
-  color: var(--text-secondary);
-}
-
-.border-custom {
-  border-color: var(--border);
-}
-
-.bg-danger {
-  background-color: var(--danger);
-}
-
-.bg-warning {
-  background-color: var(--warning);
-}
-
-.text-danger {
-  color: var(--danger);
-}
-
-.text-warning {
-  color: var(--warning);
-}
-
-/* Gradients */
-.gradient-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-}
-
-.gradient-secondary {
-  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
-}
-
-.gradient-mixed {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-}
-
+/* ---- Dégradés ---- */
+.gradient-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+.gradient-secondary { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
+.gradient-mixed { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
 .text-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
+
+/* ---- Badges ---- */
+.badge-blue { background: rgba(53, 144, 227, 0.15); color: var(--primary); }
+.badge-green { background: rgba(186, 240, 157, 0.15); color: var(--secondary); }
+.badge-orange { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+.badge-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+/* ---- Effets ---- */
+.card-hover:hover { box-shadow: 0 10px 40px rgba(53, 144, 227, 0.2); }
