@@ -1,4 +1,4 @@
-   // Layout Principal - Contient le Sidebar sur toutes les pages
+/* Layout principal */
 
 import './globals.css'
 import Sidebar from '@/components/layout/Sidebar'
@@ -13,13 +13,8 @@ export default function RootLayout({ children }) {
     <html lang="fr">
       <body className="bg-dark min-h-screen">
         <div className="flex">
-          {/* Menu latéral */}
           <Sidebar />
-          
-          {/* Contenu principal (décalé de 280px à cause du Sidebar) */}
-          <main className="flex-1 ml-[280px] min-h-screen relative z-10">
-            {children}
-          </main>
+          <main className="flex-1 ml-[280px] min-h-screen relative z-10">{children}</main>
         </div>
       </body>
     </html>
