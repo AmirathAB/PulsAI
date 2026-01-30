@@ -1,26 +1,136 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;800&display=swap');
+@import 'tailwindcss';
 
+/* Variables CSS pour les couleurs PulsAI */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #3590e3;
+  --primary-dark: #2678c7;
+  --primary-light: #5ba8e9;
+  --secondary: #baf09d;
+  --secondary-dark: #a3d684;
+  --bg-dark: #1f2937;
+  --bg-light: #374151;
+  --bg-card: #2d3748;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border: #4b5563;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #baf09d;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+/* Scrollbar personnalisé */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Classes utilitaires personnalisées */
+.font-unbounded {
+  font-family: 'Unbounded', sans-serif;
+}
+
+.font-ubuntu {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-primary-dark {
+  background-color: var(--primary-dark);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-dark {
+  background-color: var(--bg-dark);
+}
+
+.bg-dark-light {
+  background-color: var(--bg-light);
+}
+
+.bg-dark-card {
+  background-color: var(--bg-card);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary-custom {
+  color: var(--secondary);
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+.border-custom {
+  border-color: var(--border);
+}
+
+.bg-danger {
+  background-color: var(--danger);
+}
+
+.bg-warning {
+  background-color: var(--warning);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+/* Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+}
+
+.gradient-mixed {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
