@@ -1,4 +1,4 @@
-/* Cartes statistiques */
+/* Cartes statistiques - Responsive optimisé */
 
 import { MessageSquare, CheckCircle, Zap, Mail } from 'lucide-react'
 
@@ -11,17 +11,24 @@ const stats = [
 
 export default function QuickStats() {
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 lg:mb-8">
       {stats.map((stat, i) => {
         const Icon = stat.icon
         return (
-          <div key={i} className="bg-dark-card border border-custom rounded-2xl p-6 hover:-translate-y-1 hover:border-primary card-hover transition-all duration-300">
-            <div className="flex justify-between items-start mb-4">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.badge}`}><Icon size={24} /></div>
-              <span className="badge-green px-2.5 py-1 rounded-md text-xs font-semibold">↑ {stat.trend}</span>
+          <div
+            key={i}
+            className="bg-dark-card border border-custom rounded-2xl p-5 lg:p-6 lg:hover:-translate-y-1 lg:hover:border-primary card-hover transition-all duration-300"
+          >
+            <div className="flex justify-between items-start mb-3 lg:mb-4">
+              <div className={`w-11 h-11 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center ${stat.badge}`}>
+                <Icon size={22} className="lg:w-6 lg:h-6" />
+              </div>
+              <span className="badge-green px-2.5 py-1 rounded-md text-xs font-semibold">
+                ↑ {stat.trend}
+              </span>
             </div>
-            <div className="font-unbounded text-3xl font-bold mb-1">{stat.value}</div>
-            <div className="text-muted">{stat.label}</div>
+            <div className="font-unbounded text-2xl lg:text-3xl font-bold mb-1">{stat.value}</div>
+            <div className="text-muted text-sm lg:text-base">{stat.label}</div>
           </div>
         )
       })}

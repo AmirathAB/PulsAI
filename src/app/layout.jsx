@@ -1,20 +1,29 @@
-/* Layout principal */
+/* Layout principal - Responsive avec menu mobile */
 
+'use client'
+
+import { useState } from 'react'
 import './globals.css'
 import Sidebar from '@/components/layout/Sidebar'
-
-export const metadata = {
-  title: 'PulsAI - CRM Intelligent',
-  description: 'Plateforme CRM avec IA conversationnelle',
-}
+import MobileMenu from '@/components/layout/MobileMenu'
 
 export default function RootLayout({ children }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   return (
     <html lang="fr">
       <body className="bg-dark min-h-screen">
         <div className="flex">
-          <Sidebar />
-          <main className="flex-1 ml-[280px] min-h-screen relative z-10">{children}</main>
+          {/* Menu hamburger mobile */}
+          <MobileMenu isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+          
+          {/* Sidebar */}
+          <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+          
+          {/* Contenu principal */}
+          <main className="flex-1 lg:ml-[280px] min-h-screen relative z-10">
+            {children}
+          </main>
         </div>
       </body>
     </html>
