@@ -1,9 +1,10 @@
+/* PulsAI - Styles globaux */
 
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&display=swap');
-@import 'tailwindcss';
-
-/* ---- Variables ---- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   --primary: #3590e3;
   --primary-dark: #2678c7;
@@ -19,14 +20,13 @@
   --warning: #f59e0b;
 }
 
-/* ---- Base ---- */
 body {
   font-family: 'Ubuntu', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-primary);
 }
 
-/* ---- Utilitaires ---- */
+/* Utilitaires */
 .font-unbounded { font-family: 'Unbounded', sans-serif; }
 .bg-dark { background-color: var(--bg-dark); }
 .bg-dark-light { background-color: var(--bg-light); }
@@ -43,7 +43,7 @@ body {
 .text-warning { color: var(--warning); }
 .border-custom { border-color: var(--border); }
 
-/* ---- Dégradés ---- */
+/* Dégradés */
 .gradient-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
 .gradient-secondary { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); }
 .gradient-mixed { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
@@ -53,11 +53,11 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* ---- Badges ---- */
+/* Badges */
 .badge-blue { background: rgba(53, 144, 227, 0.15); color: var(--primary); }
 .badge-green { background: rgba(186, 240, 157, 0.15); color: var(--secondary); }
 .badge-orange { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
 .badge-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
 
-/* ---- Effets ---- */
+/* Effets */
 .card-hover:hover { box-shadow: 0 10px 40px rgba(53, 144, 227, 0.2); }
