@@ -4,9 +4,9 @@
 
 const filters = [
   { label: 'Tous', key: 'Tous' },
-  { label: 'Ouverts', key: 'Ouverts' },
+  { label: 'Ouverts', key: 'Ouvert' },       
   { label: 'En attente', key: 'En attente' },
-  { label: 'Résolus', key: 'Résolus' },
+  { label: 'Résolus', key: 'Résolu' },       
 ]
 
 export default function TicketFilters({ activeFilter, setActiveFilter, counts }) {

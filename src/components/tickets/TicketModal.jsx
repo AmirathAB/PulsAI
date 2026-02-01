@@ -16,7 +16,7 @@ const clients = [
 
 const agents = ['Thomas R.', 'Sophie M.', 'Pierre L.', 'Non assigné']
 
-export default function TicketModal({ isOpen, onClose }) {
+export default function TicketModal({ isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     title: '',
     priority: 'Basse',
@@ -27,8 +27,36 @@ export default function TicketModal({ isOpen, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Nouveau ticket:', formData)
-    // Ici : logique de création du ticket
+    
+    // Générer un ID unique pour le ticket
+    const newTicketId = `TKT-${Math.floor(Math.random() * 10000)}`
+    
+    // Créer l'objet client avec initiales et couleur
+    const clientName = formData.client
+    const initials = clientName.split(' ').map(n => n[0]).join('')
+    const colors = ['#3590E3', '#BAF09D', '#10b981', '#06b6d4', '#f59e0b']
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]
+    
+    // Construire le nouveau ticket
+    const newTicket = {
+      id: newTicketId,
+      title: formData.title,
+      client: { 
+        name: clientName, 
+        initials: initials, 
+        color: randomColor 
+      },
+      status: 'Ouvert',
+      priority: formData.priority,
+      assignedTo: formData.assignedTo,
+      createdAt: 'À l\'instant',
+    }
+    
+    // Envoyer le nouveau ticket au parent
+    if (onSubmit) {
+      onSubmit(newTicket)
+    }
+    
     onClose()
     resetForm()
   }
