@@ -11,6 +11,7 @@ export default function ChatPage() {
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState(chatMessages)
   const [selectedConversation, setSelectedConversation] = useState(1)
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const handleSendMessage = () => {
     if (!message.trim()) return
@@ -53,21 +54,52 @@ export default function ChatPage() {
         subtitle="Conversations en temps réel avec l'intelligence artificielle"
       />
 
-      <div className="p-8">
-        <div className="grid grid-cols-12 gap-6 h-[calc(100vh-200px)]">
-          <ConversationsSidebar
-            conversations={chatConversations}
-            selectedConversation={selectedConversation}
-            onSelectConversation={setSelectedConversation}
-          />
+      {/* Toggle Mobile */}
+      <div className="md:hidden px-4 py-2 flex gap-2 border-b border-border">
+        <button
+          onClick={() => setShowSidebar(true)}
+          className={`flex-1 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+            showSidebar
+              ? 'bg-primary text-white'
+              : 'bg-background-hover text-text-secondary'
+          }`}
+        >
+          Conversations
+        </button>
+        <button
+          onClick={() => setShowSidebar(false)}
+          className={`flex-1 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+            !showSidebar
+              ? 'bg-primary text-white'
+              : 'bg-background-hover text-text-secondary'
+          }`}
+        >
+          Chat
+        </button>
+      </div>
 
-          <ChatArea
-            messages={messages}
-            message={message}
-            onMessageChange={setMessage}
-            onSendMessage={handleSendMessage}
-          />
+      <div className="p-2 sm:p-4 lg:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 lg:gap-6 h-[calc(100vh-140px)] sm:h-[calc(100vh-160px)] lg:h-[calc(100vh-200px)]">
+          {/* Sidebar - Masquée sur mobile sauf si showSidebar=true */}
+          <div className={`${showSidebar ? 'block' : 'hidden'} md:block md:col-span-4 lg:col-span-3`}>
+            <ConversationsSidebar
+              conversations={chatConversations}
+              selectedConversation={selectedConversation}
+              onSelectConversation={setSelectedConversation}
+            />
+          </div>
 
+          {/* Chat Area - Masquée sur mobile si showSidebar=true */}
+          <div className={`${showSidebar ? 'hidden' : 'block'} md:block md:col-span-8 lg:col-span-6`}>
+            <ChatArea
+              messages={messages}
+              message={message}
+              onMessageChange={setMessage}
+              onSendMessage={handleSendMessage}
+            />
+          </div>
+
+          {/* Contact Panel - Visible uniquement sur grands écrans */}
           <ContactPanel />
         </div>
       </div>

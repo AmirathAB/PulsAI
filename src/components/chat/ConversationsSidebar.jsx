@@ -19,8 +19,7 @@ export default function ConversationsSidebar({
   )
 
   return (
-    <div className="col-span-3 bg-background-card rounded-xl border border-border overflow-hidden flex flex-col">
-      {/* Search Bar */}
+<div className="col-span-1 md:col-span-4 lg:col-span-3 bg-background-card rounded-xl border border-border overflow-hidden flex flex-col">      {/* Search Bar */}
       <div className="p-4 border-b border-border">
         <div className="relative">
           <Search
