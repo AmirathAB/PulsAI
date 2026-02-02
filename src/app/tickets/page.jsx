@@ -9,6 +9,7 @@ import Header from '@/components/layout/Header'
 import TicketFilters from '@/components/tickets/TicketFilters'
 import TicketTable from '@/components/tickets/TicketTable'
 import TicketModal from '@/components/tickets/TicketModal'
+import TicketDetailsModal from '@/components/tickets/TicketDetailsModal'
 import { useToast } from '@/contexts/ToastContext'
 
 export default function TicketsPage() {
@@ -16,6 +17,7 @@ export default function TicketsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('Tous')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false) // AJOUTÉ
   const [selectedTicket, setSelectedTicket] = useState(null) // pour voir/modifier
 
   // Transformer les données statiques en état
@@ -27,6 +29,7 @@ export default function TicketsPage() {
       status: 'Ouvert',
       priority: 'Haute',
       assignedTo: 'Thomas R.',
+      description: 'Le client ne parvient pas à se connecter à son compte depuis ce matin.',
       createdAt: 'Il y a 2h',
     },
     {
@@ -36,6 +39,7 @@ export default function TicketsPage() {
       status: 'En attente',
       priority: 'Moyenne',
       assignedTo: 'Sophie M.',
+      description: 'Question concernant le montant facturé ce mois-ci.',
       createdAt: 'Il y a 4h',
     },
     {
@@ -45,6 +49,7 @@ export default function TicketsPage() {
       status: 'Résolu',
       priority: 'Basse',
       assignedTo: 'Pierre L.',
+      description: 'Demande d\'ajout d\'une nouvelle fonctionnalité d\'export.',
       createdAt: 'Il y a 1j',
     },
     {
@@ -54,6 +59,7 @@ export default function TicketsPage() {
       status: 'Ouvert',
       priority: 'Haute',
       assignedTo: 'Thomas R.',
+      description: 'L\'application plante au démarrage sur certains appareils.',
       createdAt: 'Il y a 1j',
     },
     {
@@ -63,6 +69,7 @@ export default function TicketsPage() {
       status: 'En attente',
       priority: 'Moyenne',
       assignedTo: 'Non assigné',
+      description: 'Besoin d\'aide pour intégrer l\'API dans leur système.',
       createdAt: 'Il y a 2j',
     },
   ])
@@ -70,12 +77,12 @@ export default function TicketsPage() {
   // Fonctions pour Voir / Modifier / Supprimer
   const handleViewTicket = (ticket) => {
     setSelectedTicket(ticket)
-    setIsModalOpen(true)
+    setIsDetailsModalOpen(true) // MODIFIÉ : ouvre le modal de détails
   }
 
   const handleEditTicket = (ticket) => {
     setSelectedTicket(ticket)
-    setIsModalOpen(true)
+    setIsModalOpen(true) // ouvre le modal d'édition
   }
 
   const handleDeleteTicket = (ticketId) => {
@@ -187,11 +194,18 @@ export default function TicketsPage() {
         />
       </motion.div>
 
-      {/* Modal nouveau ticket */}
+      {/* Modal création/modification */}
       <TicketModal
         isOpen={isModalOpen}
         onClose={() => { setIsModalOpen(false); setSelectedTicket(null) }}
         onSubmit={handleCreateOrEditTicket}
+        ticket={selectedTicket}
+      />
+
+      {/* AJOUTÉ : Modal de visualisation (lecture seule) */}
+      <TicketDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={() => { setIsDetailsModalOpen(false); setSelectedTicket(null) }}
         ticket={selectedTicket}
       />
     </div>

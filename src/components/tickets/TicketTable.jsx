@@ -1,4 +1,4 @@
-/* Tableau de tickets - Avec pagination */
+/* Tableau de tickets - Avec pagination et actions fonctionnelles */
 
 'use client'
 
@@ -7,7 +7,7 @@ import { Eye, Edit2, Trash2, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const ITEMS_PER_PAGE = 5
 
-export default function TicketTable({ tickets }) {
+export default function TicketTable({ tickets, onView, onEdit, onDelete }) {
   const [currentPage, setCurrentPage] = useState(1)
 
   // Pagination
@@ -41,6 +41,13 @@ export default function TicketTable({ tickets }) {
         return { badge: 'badge-green', text: 'Basse' }
       default:
         return { badge: 'badge-blue', text: priority }
+    }
+  }
+
+  // Gestion de la suppression avec confirmation
+  const handleDelete = (ticket) => {
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer le ticket ${ticket.id} ?`)) {
+      onDelete(ticket.id)
     }
   }
 
@@ -143,26 +150,34 @@ export default function TicketTable({ tickets }) {
                       <span className="text-sm text-muted">{ticket.createdAt}</span>
                     </td>
 
-                    {/* Actions */}
+                    {/* Actions - BOUTONS FONCTIONNELS */}
                     <td className="py-4">
                       <div className="flex items-center gap-2">
+                        {/* Bouton Voir */}
                         <button
-                          className="w-8 h-8 rounded-lg bg-dark-light hover:bg-primary/20 flex items-center justify-center transition-colors"
-                          title="Voir"
+                          onClick={() => onView(ticket)}
+                          className="w-8 h-8 rounded-lg bg-dark-light hover:bg-primary/20 flex items-center justify-center transition-colors group"
+                          title="Voir les détails"
                         >
-                          <Eye size={16} className="text-muted hover:text-primary" />
+                          <Eye size={16} className="text-muted group-hover:text-primary transition-colors" />
                         </button>
+                        
+                        {/* Bouton Modifier */}
                         <button
-                          className="w-8 h-8 rounded-lg bg-dark-light hover:bg-warning/20 flex items-center justify-center transition-colors"
-                          title="Modifier"
+                          onClick={() => onEdit(ticket)}
+                          className="w-8 h-8 rounded-lg bg-dark-light hover:bg-warning/20 flex items-center justify-center transition-colors group"
+                          title="Modifier le ticket"
                         >
-                          <Edit2 size={16} className="text-muted hover:text-warning" />
+                          <Edit2 size={16} className="text-muted group-hover:text-warning transition-colors" />
                         </button>
+                        
+                        {/* Bouton Supprimer */}
                         <button
-                          className="w-8 h-8 rounded-lg bg-dark-light hover:bg-danger/20 flex items-center justify-center transition-colors"
-                          title="Supprimer"
+                          onClick={() => handleDelete(ticket)}
+                          className="w-8 h-8 rounded-lg bg-dark-light hover:bg-danger/20 flex items-center justify-center transition-colors group"
+                          title="Supprimer le ticket"
                         >
-                          <Trash2 size={16} className="text-muted hover:text-danger" />
+                          <Trash2 size={16} className="text-muted group-hover:text-danger transition-colors" />
                         </button>
                       </div>
                     </td>
