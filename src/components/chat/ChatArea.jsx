@@ -12,7 +12,8 @@ export default function ChatArea({ messages, message, onMessageChange, onSendMes
   }
 
   return (
-    <div className="col-span-6 bg-background-card rounded-xl border border-border overflow-hidden flex flex-col">
+    <div className="col-span-1 md:col-span-8 lg:col-span-6 bg-background-card rounded-xl border border-border overflow-hidden flex flex-col">
+      {' '}
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center gap-3">
@@ -25,7 +26,6 @@ export default function ChatArea({ messages, message, onMessageChange, onSendMes
           </div>
         </div>
       </div>
-
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, index) => (
@@ -37,7 +37,7 @@ export default function ChatArea({ messages, message, onMessageChange, onSendMes
             className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[70%] rounded-xl p-4 ${
+              className={`max-w-[90%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[70%] rounded-xl p-3 sm:p-4 ${
                 msg.sender === 'user' ? 'bg-primary text-white' : 'bg-background-hover text-white'
               }`}
             >
@@ -52,10 +52,16 @@ export default function ChatArea({ messages, message, onMessageChange, onSendMes
           </motion.div>
         ))}
       </div>
-
       {/* Input */}
-      <div className="p-4 border-t border-border">
-        <div className="flex items-center gap-3">
+      <div className="p-2 sm:p-3 md:p-4 border-t border-border">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+          {/* Boutons cachés sur mobile */}
+          <button className="hidden sm:block p-2 hover:bg-background-hover rounded-lg transition-colors text-text-secondary hover:text-white">
+            <Paperclip size={20} />
+          </button>
+          <button className="hidden sm:block p-2 hover:bg-background-hover rounded-lg transition-colors text-text-secondary hover:text-white">
+            <Smile size={20} />
+          </button>
           <button className="p-2 hover:bg-background-hover rounded-lg transition-colors text-text-secondary hover:text-white">
             <Paperclip size={20} />
           </button>
