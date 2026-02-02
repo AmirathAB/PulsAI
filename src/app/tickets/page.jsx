@@ -9,64 +9,100 @@ import Header from '@/components/layout/Header'
 import TicketFilters from '@/components/tickets/TicketFilters'
 import TicketTable from '@/components/tickets/TicketTable'
 import TicketModal from '@/components/tickets/TicketModal'
-
-// Données tickets
-const ticketsData = [
-  {
-    id: 'TKT-2847',
-    title: 'Problème de connexion',
-    client: { name: 'Marie Dubois', initials: 'MD', color: '#3590E3' },
-    status: 'Ouvert',
-    priority: 'Haute',
-    assignedTo: 'Thomas R.',
-    createdAt: 'Il y a 2h',
-  },
-  {
-    id: 'TKT-2846',
-    title: 'Question sur la facturation',
-    client: { name: 'Jean Laurent', initials: 'JL', color: '#BAF09D' },
-    status: 'En attente',
-    priority: 'Moyenne',
-    assignedTo: 'Sophie M.',
-    createdAt: 'Il y a 4h',
-  },
-  {
-    id: 'TKT-2845',
-    title: 'Demande de fonctionnalité',
-    client: { name: 'Sophie Petit', initials: 'SP', color: '#10b981' },
-    status: 'Résolu',
-    priority: 'Basse',
-    assignedTo: 'Pierre L.',
-    createdAt: 'Il y a 1j',
-  },
-  {
-    id: 'TKT-2844',
-    title: 'Bug critique application',
-    client: { name: 'Alice Moreau', initials: 'AM', color: '#06b6d4' },
-    status: 'Ouvert',
-    priority: 'Haute',
-    assignedTo: 'Thomas R.',
-    createdAt: 'Il y a 1j',
-  },
-  {
-    id: 'TKT-2843',
-    title: 'Intégration API',
-    client: { name: 'Paul Durand', initials: 'PD', color: '#f59e0b' },
-    status: 'En attente',
-    priority: 'Moyenne',
-    assignedTo: 'Non assigné',
-    createdAt: 'Il y a 2j',
-  },
-]
+import { useToast } from '@/contexts/ToastContext'
 
 export default function TicketsPage() {
+  const toast = useToast()
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('Tous')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedTicket, setSelectedTicket] = useState(null) // pour voir/modifier
+
+  // Transformer les données statiques en état
+  const [tickets, setTickets] = useState([
+    {
+      id: 'TKT-2847',
+      title: 'Problème de connexion',
+      client: { name: 'Marie Dubois', initials: 'MD', color: '#3590E3' },
+      status: 'Ouvert',
+      priority: 'Haute',
+      assignedTo: 'Thomas R.',
+      createdAt: 'Il y a 2h',
+    },
+    {
+      id: 'TKT-2846',
+      title: 'Question sur la facturation',
+      client: { name: 'Jean Laurent', initials: 'JL', color: '#BAF09D' },
+      status: 'En attente',
+      priority: 'Moyenne',
+      assignedTo: 'Sophie M.',
+      createdAt: 'Il y a 4h',
+    },
+    {
+      id: 'TKT-2845',
+      title: 'Demande de fonctionnalité',
+      client: { name: 'Sophie Petit', initials: 'SP', color: '#10b981' },
+      status: 'Résolu',
+      priority: 'Basse',
+      assignedTo: 'Pierre L.',
+      createdAt: 'Il y a 1j',
+    },
+    {
+      id: 'TKT-2844',
+      title: 'Bug critique application',
+      client: { name: 'Alice Moreau', initials: 'AM', color: '#06b6d4' },
+      status: 'Ouvert',
+      priority: 'Haute',
+      assignedTo: 'Thomas R.',
+      createdAt: 'Il y a 1j',
+    },
+    {
+      id: 'TKT-2843',
+      title: 'Intégration API',
+      client: { name: 'Paul Durand', initials: 'PD', color: '#f59e0b' },
+      status: 'En attente',
+      priority: 'Moyenne',
+      assignedTo: 'Non assigné',
+      createdAt: 'Il y a 2j',
+    },
+  ])
+
+  // Fonctions pour Voir / Modifier / Supprimer
+  const handleViewTicket = (ticket) => {
+    setSelectedTicket(ticket)
+    setIsModalOpen(true)
+  }
+
+  const handleEditTicket = (ticket) => {
+    setSelectedTicket(ticket)
+    setIsModalOpen(true)
+  }
+
+  const handleDeleteTicket = (ticketId) => {
+    setTickets((prev) => prev.filter((t) => t.id !== ticketId))
+    toast.success(`Ticket ${ticketId} supprimé !`)
+  }
+
+  // Fonction pour créer ou modifier un ticket
+  const handleCreateOrEditTicket = (newTicket) => {
+    if (tickets.some((t) => t.id === newTicket.id)) {
+      // Modifier ticket existant
+      setTickets((prev) =>
+        prev.map((t) => (t.id === newTicket.id ? { ...t, ...newTicket } : t))
+      )
+      toast.success(`Ticket ${newTicket.id} modifié avec succès !`)
+    } else {
+      // Créer nouveau ticket
+      setTickets([newTicket, ...tickets])
+      toast.success(`Ticket ${newTicket.id} créé avec succès !`)
+    }
+    setSelectedTicket(null)
+    setIsModalOpen(false)
+  }
 
   // Filtrage des tickets
   const filteredTickets = useMemo(() => {
-    let filtered = ticketsData
+    let filtered = tickets
 
     // Filtrer par statut
     if (activeFilter !== 'Tous') {
@@ -85,14 +121,14 @@ export default function TicketsPage() {
     }
 
     return filtered
-  }, [activeFilter, searchQuery])
+  }, [activeFilter, searchQuery, tickets])
 
   // Compter tickets par statut
   const counts = {
-    Tous: ticketsData.length,
-    Ouverts: ticketsData.filter((t) => t.status === 'Ouvert').length,
-    'En attente': ticketsData.filter((t) => t.status === 'En attente').length,
-    Résolus: ticketsData.filter((t) => t.status === 'Résolu').length,
+    Tous: tickets.length,
+    Ouvert: tickets.filter((t) => t.status === 'Ouvert').length,
+    'En attente': tickets.filter((t) => t.status === 'En attente').length,
+    Résolu: tickets.filter((t) => t.status === 'Résolu').length,
   }
 
   return (
@@ -121,7 +157,7 @@ export default function TicketsPage() {
           </div>
 
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => { setSelectedTicket(null); setIsModalOpen(true) }}
             className="gradient-primary px-4 py-2.5 lg:py-3 rounded-xl font-medium text-white flex items-center gap-2 hover:opacity-90 transition-opacity whitespace-nowrap"
           >
             <Plus size={20} />
@@ -143,11 +179,21 @@ export default function TicketsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <TicketTable tickets={filteredTickets} />
+        <TicketTable
+          tickets={filteredTickets}
+          onView={handleViewTicket}
+          onEdit={handleEditTicket}
+          onDelete={handleDeleteTicket}
+        />
       </motion.div>
 
       {/* Modal nouveau ticket */}
-      <TicketModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <TicketModal
+        isOpen={isModalOpen}
+        onClose={() => { setIsModalOpen(false); setSelectedTicket(null) }}
+        onSubmit={handleCreateOrEditTicket}
+        ticket={selectedTicket}
+      />
     </div>
   )
 }

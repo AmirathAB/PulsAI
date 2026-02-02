@@ -1,17 +1,25 @@
 /* Campagne active */
 
 import { Mail, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function ActiveCampaign() {
   return (
     <div className="bg-dark-card border border-custom rounded-2xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="font-unbounded text-lg font-semibold">Campagne active</h2>
-        <button className="text-primary text-sm font-medium flex items-center gap-1">Voir <ArrowRight size={16} /></button>
+        <Link
+          href="/campaigns"
+          className="text-primary text-sm font-medium flex items-center gap-1"
+        >
+          Voir <ArrowRight size={16} />
+        </Link>{' '}
       </div>
       <div className="p-4 bg-dark-light-50 rounded-xl">
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 badge-blue rounded-xl flex items-center justify-center"><Mail size={24} /></div>
+          <div className="w-12 h-12 badge-blue rounded-xl flex items-center justify-center">
+            <Mail size={24} />
+          </div>
           <div>
             <h3 className="font-semibold">Newsletter Janvier 2026</h3>
             <p className="text-muted text-sm">18,642 destinataires</p>
