@@ -14,7 +14,6 @@ export default function ActivityFeed() {
     <div className="bg-dark-card border border-custom rounded-2xl p-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="font-unbounded text-lg font-semibold">Activité récente</h2>
-        <button className="text-primary text-sm font-medium flex items-center gap-1">Tout voir <ArrowRight size={16} /></button>
       </div>
       <div className="space-y-4">
         {activities.map((a, i) => (

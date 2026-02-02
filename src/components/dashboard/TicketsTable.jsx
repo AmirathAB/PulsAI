@@ -3,6 +3,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 const tickets = [
@@ -22,9 +23,9 @@ export default function TicketsTable({ searchQuery = '' }) {
     <div className="bg-dark-card border border-custom rounded-2xl p-5 lg:p-6">
       <div className="flex justify-between items-center mb-5 lg:mb-6">
         <h2 className="font-unbounded text-base lg:text-lg font-semibold">Tickets en cours</h2>
-        <button className="text-primary text-sm font-medium flex items-center gap-1 hover:opacity-80">
+        <Link href="/tickets" className="text-primary text-sm font-medium flex items-center gap-1 hover:opacity-80">
           Gérer <ArrowRight size={16} />
-        </button>
+        </Link>
       </div>
 
       {/* Table wrapper avec overflow */}

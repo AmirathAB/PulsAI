@@ -1,8 +1,16 @@
-/* Composant Card réutilisable */
+'use client'
 
-export default function Card({ children, className = '' }) {
+import { cn } from '@/utils/helpers'
+
+export default function Card({ children, className, ...props }) {
   return (
-    <div className={`bg-dark-card border border-custom rounded-2xl p-6 ${className}`}>
+    <div
+      className={cn(
+        'bg-background-card rounded-xl p-6 border border-border',
+        className
+      )}
+      {...props}
+    >
       {children}
     </div>
   )
