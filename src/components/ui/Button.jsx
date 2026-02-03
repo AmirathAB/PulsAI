@@ -1,36 +1,29 @@
 'use client'
 
-import { cn } from '@/utils/helpers'
-
-export default function Button({
-  children,
-  variant = 'primary',
-  size = 'md',
-  className,
-  ...props
+export default function Button({ 
+  children, 
+  variant = 'primary', 
+  type = 'button',
+  onClick,
+  className = '',
+  disabled = false,
+  ...props 
 }) {
-  const baseStyles =
-    'inline-flex items-center justify-center font-medium rounded-lg transition-all'
-
+  const baseClasses = 'inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
+  
   const variants = {
-    primary:
-      'bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/20',
-    secondary:
-      'bg-background-card border border-border hover:bg-background-hover text-text-secondary hover:text-white',
-    outline:
-      'border border-border hover:bg-background-hover text-text-secondary hover:text-white',
+    primary: 'bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/20 hover:shadow-primary/40',
+    outline: 'border-2 border-border text-text-secondary hover:bg-background-hover hover:text-white',
+    danger: 'bg-status-error hover:bg-red-600 text-white',
     ghost: 'hover:bg-background-hover text-text-secondary hover:text-white',
-  }
-
-  const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
   }
 
   return (
     <button
-      className={cn(baseStyles, variants[variant], sizes[size], className)}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseClasses} ${variants[variant]} ${className}`}
       {...props}
     >
       {children}
