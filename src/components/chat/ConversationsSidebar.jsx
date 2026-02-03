@@ -1,4 +1,4 @@
-
+/* Crée la barre latérale des conversations pour le chat */
 'use client'
 
 import { useState } from 'react'

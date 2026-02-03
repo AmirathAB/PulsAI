@@ -1,3 +1,5 @@
+/* Context React global pour gérer la recherche*/ 
+
 'use client'
 
 import { createContext, useContext, useState } from 'react'

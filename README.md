@@ -504,27 +504,27 @@ modal.isOpen
 
 <table>
   <tr>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/Dashtablette.jpeg" alt="Mobile Home">
       <p align="center"><b>Accueil Tablette</b></p>
     </td>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/statstablette.jpeg" alt="Mobile Menu">
       <p align="center"><b>Stats Tablette</b></p>
     </td>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/Ticketstablette.jpeg" alt="Mobile Chat">
       <p align="center"><b>Tickets Tablette</b></p>
     </td>
-     <td width="33%">
+     <td width="50%">
       <img src="./public/screenshots/campagne tablette.jpeg" alt="Mobile Chat">
       <p align="center"><b>Campagne Tablette</b></p>
     </td>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/Nouvellecampagne.jpeg" alt="Mobile Chat">
       <p align="center"><b>Nouvelle Campagne Tablette</b></p>
     </td>
-     <td width="33%">
+     <td colspan="2">
       <img src="./public/screenshots/ChatAi tablette.jpeg" alt="Mobile Chat">
       <p align="center"><b>ChatAi Tablette</b></p>
     </td>

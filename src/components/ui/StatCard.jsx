@@ -1,3 +1,5 @@
+/* Carte statistique du dashboard */
+
 'use client'
 
 import { motion } from 'framer-motion'

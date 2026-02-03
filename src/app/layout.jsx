@@ -12,15 +12,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body className="bg-dark min-h-screen">
-        <Providers> {/* <-- ON ENVELOPPE TOUT */}
+        <Providers> 
           <div className="flex">
-            {/* Menu hamburger mobile */}
             <MobileMenu isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
-            {/* Sidebar */}
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-            {/* Contenu principal */}
             <main className="flex-1 lg:ml-[280px] min-h-screen relative z-10">
               {children}
             </main>

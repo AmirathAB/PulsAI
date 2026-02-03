@@ -1,3 +1,4 @@
+/* La section de chat */
 'use client'
 
 import { motion } from 'framer-motion'

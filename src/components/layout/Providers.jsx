@@ -1,3 +1,5 @@
+/* Regroupe les contextes globaux de l'application */
+/* Initialise les fonctionnalités globaux de l'application*/
 "use client"
 
 import { SearchProvider } from '@/contexts/SearchContext'

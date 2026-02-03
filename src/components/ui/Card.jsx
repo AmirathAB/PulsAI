@@ -1,3 +1,4 @@
+/* Section card du dashboard */
 'use client'
 
 import { cn } from '@/utils/helpers'

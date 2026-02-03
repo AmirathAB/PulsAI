@@ -1,3 +1,5 @@
+/* Toutes les constantes de l'application */
+
 export const NAVIGATION_ITEMS = [
   {
     label: 'Dashboard',

@@ -1,3 +1,4 @@
+/* Le panel de contact */
 'use client'
 
 import { motion } from 'framer-motion'
