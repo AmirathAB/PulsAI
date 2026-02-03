@@ -17,11 +17,11 @@
 ## Fonctionnalités Principales
 
 ### Interface Utilisateur
-- ✅ **Design moderne** avec thème sombre personnalisé
-- ✅ **Animations fluides** avec Framer Motion
-- ✅ **Responsive Design** adapté mobile, tablette et desktop
-- ✅ **Navigation intuitive** avec sidebar et menu mobile
-- ✅ **Système de notifications** (toasts) pour le feedback utilisateur
+-  **Design moderne** avec thème sombre personnalisé
+-  **Animations fluides** avec Framer Motion
+-  **Responsive Design** adapté mobile, tablette et desktop
+-  **Navigation intuitive** avec sidebar et menu mobile
+-  **Système de notifications** (toasts) pour le feedback utilisateur
 
 ### Dashboard (Page d'Accueil)
 - Vue d'ensemble des statistiques clés (conversations, tickets, campagnes)
@@ -476,23 +476,23 @@ modal.isOpen
 
 <table>
   <tr>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/dashmobile.jpeg" alt="Mobile Home">
       <p align="center"><b>Accueil Mobile</b></p>
     </td>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/statsmobile.jpeg" alt="Mobile Menu">
       <p align="center"><b>Stats Mobile</b></p>
     </td>
-    <td width="33%">
+    <td width="50%">
       <img src="./public/screenshots/ticketmobile.jpeg" alt="Mobile Chat">
       <p align="center"><b>Tickets Mobile</b></p>
     </td>
-     <td width="33%">
+     <td width="50%">
       <img src="./public/screenshots/campagne mobile.jpeg" alt="Mobile Chat">
       <p align="center"><b>Campagne Mobile</b></p>
     </td>
-     <td width="33%">
+     <td colspan="2">
       <img src="./public/screenshots/chatAi mobile.jpeg" alt="Mobile Chat">
       <p align="center"><b>ChatAi Mobile</b></p>
     </td>
