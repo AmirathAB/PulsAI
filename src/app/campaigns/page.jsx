@@ -16,10 +16,10 @@ export default function CampaignsPage() {
   const { searchQuery } = useSearch()
   const campaignModal = useModal()
   
-  // ✅ State local pour les campagnes (initialisé avec les données existantes)
+  //  State local pour les campagnes (initialisé avec les données existantes)
   const [campaigns, setCampaigns] = useState(campaignsData)
 
-  // ✅ Fonction pour ajouter une nouvelle campagne
+  //  Fonction pour ajouter une nouvelle campagne
   const handleAddCampaign = (newCampaign) => {
     const campaign = {
       id: Date.now(), // ID unique
@@ -41,7 +41,7 @@ export default function CampaignsPage() {
       recipients: getSegmentCount(newCampaign.segment),
     }
     
-    setCampaigns(prev => [campaign, ...prev]) // Ajoute en premier
+    setCampaigns(prev => [campaign, ...prev]) 
   }
 
   // Helper pour l'icône selon le type
@@ -66,7 +66,7 @@ export default function CampaignsPage() {
     return counts[segment] || '0'
   }
 
-  // ✅ Calcul dynamique des compteurs
+  //  Calcul dynamique des compteurs
   const tabCounts = useMemo(() => ({
     all: campaigns.length,
     active: campaigns.filter(c => c.status === 'Active').length,
@@ -82,7 +82,7 @@ export default function CampaignsPage() {
   ]
 
   const filteredCampaigns = useMemo(() => {
-    let filtered = campaigns // ✅ Utilise le state, pas campaignsData
+    let filtered = campaigns 
 
     if (activeTab === 1) {
       filtered = filtered.filter(c => c.status === 'Active')
@@ -103,7 +103,7 @@ export default function CampaignsPage() {
     }
 
     return filtered
-  }, [activeTab, searchQuery, campaigns]) // ✅ Ajoute campaigns aux dépendances
+  }, [activeTab, searchQuery, campaigns]) 
 
   return (
     <div className="min-h-screen">
@@ -225,7 +225,7 @@ export default function CampaignsPage() {
           </div>
         )}
 
-        {/* ✅ Passe la fonction onAdd au modal */}
+        {/*  Passe la fonction onAdd au modal */}
         <CampaignModal
           isOpen={campaignModal.isOpen}
           onClose={campaignModal.close}

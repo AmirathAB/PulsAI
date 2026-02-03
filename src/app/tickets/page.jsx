@@ -202,7 +202,6 @@ export default function TicketsPage() {
         ticket={selectedTicket}
       />
 
-      {/* AJOUTÉ : Modal de visualisation (lecture seule) */}
       <TicketDetailsModal
         isOpen={isDetailsModalOpen}
         onClose={() => { setIsDetailsModalOpen(false); setSelectedTicket(null) }}

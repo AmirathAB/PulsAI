@@ -18,7 +18,6 @@ import {
   Save,
 } from 'lucide-react'
 
-// ✅ AJOUTE onAdd ICI
 export default function CampaignModal({ isOpen, onClose, onAdd }) {
   const { success } = useToast()
   const [formData, setFormData] = useState({
@@ -30,7 +29,7 @@ export default function CampaignModal({ isOpen, onClose, onAdd }) {
     content: '',
   })
 
-  // ✅ Fonction pour réinitialiser le formulaire
+  //  Fonction pour réinitialiser le formulaire
   const resetForm = () => {
     setFormData({
       name: '',
@@ -50,7 +49,6 @@ export default function CampaignModal({ isOpen, onClose, onAdd }) {
       return
     }
     
-    // ✅ APPELLE onAdd ICI !
     if (onAdd) {
       onAdd(formData)
     }
@@ -60,7 +58,7 @@ export default function CampaignModal({ isOpen, onClose, onAdd }) {
     onClose()
   }
 
-  // ✅ Fonction pour sauvegarder en brouillon
+  //  Fonction pour sauvegarder en brouillon
   const handleSaveDraft = () => {
     if (onAdd) {
       onAdd({ ...formData, sendDate: '' }) // Sans date = brouillon
@@ -235,7 +233,7 @@ export default function CampaignModal({ isOpen, onClose, onAdd }) {
           <Button
             type="button"
             variant="outline"
-            onClick={handleSaveDraft}  // ✅ UTILISE LA FONCTION
+            onClick={handleSaveDraft}  
             className="w-full sm:w-auto px-6"
           >
             <Save size={16} className="mr-2" />

@@ -1,3 +1,4 @@
+/* Pour créer le badge */ 
 'use client'
 
 import { cn } from '@/utils/helpers'

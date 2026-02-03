@@ -1,3 +1,5 @@
+/* Gestion des notifications temporaire : succès; erreur; info et warning*/ 
+
 'use client'
 
 import { createContext, useContext, useState, useCallback } from 'react'

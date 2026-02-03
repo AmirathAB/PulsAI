@@ -1,3 +1,15 @@
+/*
+le composant visuel qui :
+
+écoute les toasts via useToast()
+
+les affiche à l’écran
+
+gère les animations d’entrée / sortie
+
+permet la fermeture manuelle
+*/
+
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'

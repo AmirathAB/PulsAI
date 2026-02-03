@@ -1,3 +1,4 @@
+/* Pour créér un bouton personnalisé et réutilisable */
 'use client'
 
 export default function Button({ 

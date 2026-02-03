@@ -1,3 +1,8 @@
+/* Fonctions utilitaires utilisées dans l'application pour */
+/*Formatter des données
+Gérer les classes CSS
+Obtenir des couleurs selon les statuts/priorités*/
+
 import clsx from 'clsx'
 
 export function cn(...inputs) {
