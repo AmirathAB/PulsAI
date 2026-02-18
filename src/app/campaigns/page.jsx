@@ -7,6 +7,8 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import CampaignModal from '@/components/campaigns/CampaignModal'
 import { useModal } from '@/hooks/useModal'
+// Hook de persistance localStorage
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 import * as Icons from 'lucide-react'
 import { campaignsData } from '@/utils/data'
 import { useSearch } from '@/contexts/SearchContext'
@@ -15,9 +17,11 @@ export default function CampaignsPage() {
   const [activeTab, setActiveTab] = useState(0)
   const { searchQuery } = useSearch()
   const campaignModal = useModal()
-  
-  //  State local pour les campagnes (initialisé avec les données existantes)
-  const [campaigns, setCampaigns] = useState(campaignsData)
+
+  //  useState(campaignsData) remplacé par useLocalStorage
+  // Les campagnes sont maintenant persistées sous la clé 'pulsai_campaigns'
+  // campaignsData (depuis data.js) sert uniquement de valeur initiale au premier lancement
+  const [campaigns, setCampaigns] = useLocalStorage('pulsai_campaigns', campaignsData)
 
   //  Fonction pour ajouter une nouvelle campagne
   const handleAddCampaign = (newCampaign) => {
@@ -28,20 +32,21 @@ export default function CampaignsPage() {
       status: newCampaign.sendDate ? 'Planifiée' : 'Brouillon',
       statusColor: newCampaign.sendDate ? '#F59E0B' : '#6B7280',
       icon: getCampaignIcon(newCampaign.type),
-      scheduledDate: newCampaign.sendDate 
+      scheduledDate: newCampaign.sendDate
         ? new Date(newCampaign.sendDate).toLocaleDateString('fr-FR', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
           })
         : null,
       lastEdited: 'À l\'instant',
       recipients: getSegmentCount(newCampaign.segment),
     }
-    
-    setCampaigns(prev => [campaign, ...prev]) 
+
+    //  setCampaigns persiste aussi dans localStorage automatiquement
+    setCampaigns(prev => [campaign, ...prev])
   }
 
   // Helper pour l'icône selon le type
@@ -82,7 +87,7 @@ export default function CampaignsPage() {
   ]
 
   const filteredCampaigns = useMemo(() => {
-    let filtered = campaigns 
+    let filtered = campaigns
 
     if (activeTab === 1) {
       filtered = filtered.filter(c => c.status === 'Active')
@@ -97,13 +102,15 @@ export default function CampaignsPage() {
       filtered = filtered.filter(
         campaign =>
           campaign.title.toLowerCase().includes(query) ||
-          campaign.description.toLowerCase().includes(query) ||
+          //  ajout de ?. pour éviter un crash si description est undefined
+          // (les nouvelles campagnes créées peuvent avoir une description vide)
+          campaign.description?.toLowerCase().includes(query) ||
           campaign.status.toLowerCase().includes(query)
       )
     }
 
     return filtered
-  }, [activeTab, searchQuery, campaigns]) 
+  }, [activeTab, searchQuery, campaigns])
 
   return (
     <div className="min-h-screen">
@@ -164,7 +171,6 @@ export default function CampaignsPage() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Card className="hover:border-primary/50 group">
-                    {/* ... reste du code identique ... */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">

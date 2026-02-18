@@ -4,7 +4,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, BarChart3, Ticket, Mail, Bot, X } from 'lucide-react'
+//  ajout de Settings dans les imports
+import { LayoutDashboard, BarChart3, Ticket, Mail, Bot, Settings, X } from 'lucide-react'
 
 const navItems = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -12,6 +13,12 @@ const navItems = [
   { name: 'Tickets', href: '/tickets', icon: Ticket, badge: 5 },
   { name: 'Campagnes', href: '/campaigns', icon: Mail },
   { name: 'Chat AI', href: '/chat', icon: Bot, badge: 12 },
+]
+
+// AJOUTÉ : tableau séparé pour les éléments du bas de la sidebar
+// Séparé de navItems pour pouvoir les placer visuellement en bas avec flex
+const bottomItems = [
+  { name: 'Paramètres', href: '/settings', icon: Settings },
 ]
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -34,6 +41,7 @@ export default function Sidebar({ isOpen, onClose }) {
           w-[280px]
           transition-transform duration-300 ease-in-out
           lg:translate-x-0
+          flex flex-col
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
@@ -54,7 +62,7 @@ export default function Sidebar({ isOpen, onClose }) {
         </div>
 
         {/* Navigation */}
-        <nav className="px-4 mt-6">
+        <nav className="px-4 mt-6 flex-1">
           <ul className="space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon
@@ -86,6 +94,31 @@ export default function Sidebar({ isOpen, onClose }) {
             })}
           </ul>
         </nav>
+        
+        <div className="px-4 pb-6 border-t border-custom pt-4 mt-4">
+          {bottomItems.map((item) => {
+            const Icon = item.icon
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={onClose}
+                className={`relative flex items-center gap-4 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'bg-primary/15 text-primary'
+                    : 'text-muted hover:bg-primary/10 hover:text-white'
+                }`}
+              >
+                {isActive && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-[60%] bg-primary rounded-r-full" />
+                )}
+                <Icon size={20} />
+                <span>{item.name}</span>
+              </Link>
+            )
+          })}
+        </div>
       </aside>
     </>
   )
