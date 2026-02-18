@@ -1,23 +1,31 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import Header from '@/components/layout/Header'
 import ConversationsSidebar from '@/components/chat/ConversationsSidebar'
 import ChatArea from '@/components/chat/ChatArea'
 import ContactPanel from '@/components/chat/ContactPanel'
 import { chatConversations, chatMessages } from '@/utils/data'
+// Hook de persistance localStorage pour les messages
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 export default function ChatPage() {
   const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState(chatMessages)
   const [selectedConversation, setSelectedConversation] = useState(1)
   const [showSidebar, setShowSidebar] = useState(false)
+
+  //  useState(chatMessages) remplacé par useLocalStorage
+  // L'historique des messages est maintenant persisté sous la clé 'pulsai_chat_messages'
+  // chatMessages (depuis data.js) sert uniquement de valeur initiale au premier lancement
+  const [messages, setMessages] = useLocalStorage('pulsai_chat_messages', chatMessages)
 
   const handleSendMessage = () => {
     if (!message.trim()) return
 
     const newMessage = {
-      id: messages.length + 1,
+      // Date.now() au lieu de messages.length + 1
+      // Évite les doublons d'ID si des messages ont été supprimés du localStorage
+      id: Date.now(),
       sender: 'user',
       name: 'Marie Dubois',
       content: message,
@@ -27,13 +35,15 @@ export default function ChatPage() {
       }),
     }
 
-    setMessages([...messages, newMessage])
+    //  setMessages persiste aussi dans localStorage automatiquement
+    setMessages(prev => [...prev, newMessage])
     setMessage('')
 
     // Simuler une réponse IA
     setTimeout(() => {
       const aiResponse = {
-        id: messages.length + 2,
+        //  Date.now() + 1 pour garantir un ID unique même en cas d'appels rapides
+        id: Date.now() + 1,
         sender: 'ai',
         name: 'PulsAI',
         content:
@@ -43,6 +53,7 @@ export default function ChatPage() {
           minute: '2-digit',
         }),
       }
+      // setMessages persiste aussi dans localStorage automatiquement
       setMessages(prev => [...prev, aiResponse])
     }, 1000)
   }

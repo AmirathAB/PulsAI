@@ -11,6 +11,8 @@ import TicketTable from '@/components/tickets/TicketTable'
 import TicketModal from '@/components/tickets/TicketModal'
 import TicketDetailsModal from '@/components/tickets/TicketDetailsModal'
 import { useToast } from '@/contexts/ToastContext'
+// Hook de persistance localStorage - remplace useState pour les tickets
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 export default function TicketsPage() {
   const toast = useToast()
@@ -20,8 +22,10 @@ export default function TicketsPage() {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false) // AJOUTÉ
   const [selectedTicket, setSelectedTicket] = useState(null) // pour voir/modifier
 
-  // Transformer les données statiques en état
-  const [tickets, setTickets] = useState([
+  // useState remplacé par useLocalStorage('pulsai_tickets', ...)
+  // Les tickets sont maintenant persistés dans le navigateur sous la clé 'pulsai_tickets'
+  // Le tableau initial ci-dessous ne sert que si la clé n'existe pas encore (premier lancement)
+  const [tickets, setTickets] = useLocalStorage('pulsai_tickets', [
     {
       id: 'TKT-2847',
       title: 'Problème de connexion',
@@ -86,6 +90,7 @@ export default function TicketsPage() {
   }
 
   const handleDeleteTicket = (ticketId) => {
+    // setTickets met à jour le state ET localStorage automatiquement
     setTickets((prev) => prev.filter((t) => t.id !== ticketId))
     toast.success(`Ticket ${ticketId} supprimé !`)
   }
@@ -93,14 +98,15 @@ export default function TicketsPage() {
   // Fonction pour créer ou modifier un ticket
   const handleCreateOrEditTicket = (newTicket) => {
     if (tickets.some((t) => t.id === newTicket.id)) {
-      // Modifier ticket existant
+      // setTickets persiste aussi dans localStorage
       setTickets((prev) =>
         prev.map((t) => (t.id === newTicket.id ? { ...t, ...newTicket } : t))
       )
       toast.success(`Ticket ${newTicket.id} modifié avec succès !`)
     } else {
       // Créer nouveau ticket
-      setTickets([newTicket, ...tickets])
+      // setTickets persiste aussi dans localStorage
+      setTickets((prev) => [newTicket, ...prev])
       toast.success(`Ticket ${newTicket.id} créé avec succès !`)
     }
     setSelectedTicket(null)
