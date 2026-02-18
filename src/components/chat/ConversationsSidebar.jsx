@@ -3,12 +3,16 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search } from 'lucide-react'
+import { Search, Zap, Square } from 'lucide-react'
 
 export default function ConversationsSidebar({
   conversations,
   selectedConversation,
   onSelectConversation,
+  // Props pour le mode simulation temps réel
+  simRunning,
+  onStartSim,
+  onStopSim,
 }) {
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -19,7 +23,8 @@ export default function ConversationsSidebar({
   )
 
   return (
-<div className="col-span-1 md:col-span-4 lg:col-span-3 bg-background-card rounded-xl border border-border overflow-hidden flex flex-col">      {/* Search Bar */}
+<div className="col-span-1 md:col-span-4 lg:col-span-3 bg-background-card rounded-xl border border-border overflow-hidden flex flex-col">
+      {/* Search Bar */}
       <div className="p-4 border-b border-border">
         <div className="relative">
           <Search
@@ -36,12 +41,37 @@ export default function ConversationsSidebar({
         </div>
       </div>
 
+      {/* Bouton mode simulation temps réel */}
+      <div className="px-4 py-3 border-b border-border">
+        <button
+          onClick={simRunning ? onStopSim : onStartSim}
+          className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+            simRunning
+              ? 'bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20'
+              : 'bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20'
+          }`}
+        >
+          {simRunning ? (
+            <><Square size={13} className="fill-current" /> Arrêter</>
+          ) : (
+            <><Zap size={13} /> Simuler messages entrants</>
+          )}
+        </button>
+        {/* Indicateur actif pendant la simulation */}
+        {simRunning && (
+          <p className="text-xs text-text-muted text-center mt-2 flex items-center justify-center gap-1">
+            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse inline-block" />
+            Simulation en cours…
+          </p>
+        )}
+      </div>
+
       {/* Conversations List */}
       <div className="flex-1 overflow-y-auto">
         {filteredConversations.length === 0 ? (
           <div className="p-4 text-center">
             <p className="text-text-muted text-sm">
-              Aucune conversation trouvée pour "{searchQuery}"
+              Aucune conversation trouvée pour &quot;{searchQuery}&quot;
             </p>
           </div>
         ) : (

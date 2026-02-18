@@ -1,10 +1,37 @@
 /* La section de chat */
 'use client'
 
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Smile, Paperclip } from 'lucide-react'
 
-export default function ChatArea({ messages, message, onMessageChange, onSendMessage }) {
+// -- Typing indicator : 3 points animés pendant que l'IA écrit --
+function TypingIndicator() {
+  return (
+    <div className="flex justify-start">
+      <div className="bg-background-hover rounded-xl px-4 py-3 flex items-center gap-1">
+        <span className="text-xs text-text-muted mr-2">PulsAI</span>
+        {[0, 1, 2].map(i => (
+          <motion.span
+            key={i}
+            className="w-2 h-2 rounded-full bg-primary inline-block"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default function ChatArea({ messages, message, onMessageChange, onSendMessage, isTyping }) {
+  // Ref pour auto-scroller vers le bas à chaque nouveau message
+  const bottomRef = useRef(null)
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, isTyping])
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -52,6 +79,22 @@ export default function ChatArea({ messages, message, onMessageChange, onSendMes
             </div>
           </motion.div>
         ))}
+
+        {/* Typing indicator affiché pendant que l'IA prépare sa réponse */}
+        <AnimatePresence>
+          {isTyping && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 6 }}
+            >
+              <TypingIndicator />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Ancre pour le scroll automatique */}
+        <div ref={bottomRef} />
       </div>
       {/* Input */}
       <div className="p-2 sm:p-3 md:p-4 border-t border-border">
